@@ -15,6 +15,7 @@ const routes = [
       {
         path: "",
         name: "Home",
+        redirect: "/staking",
         component: () => import("@/views/home/Index.vue")
       },
       {
