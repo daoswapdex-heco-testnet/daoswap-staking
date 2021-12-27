@@ -20,8 +20,8 @@ const routes = [
       },
       {
         path: "/staking",
-        name: "StakingLimitForLP",
-        redirect: "/staking/lp/latest",
+        name: "Staking",
+        redirect: "/staking/lp",
         component: () => import("@/layouts/home/ViewBlank.vue"),
         children: [
           {
@@ -32,12 +32,12 @@ const routes = [
             children: [
               {
                 path: "/staking/lp/latest",
-                name: "StakingLimitForLP",
+                name: "StakingLimitForLPLatest",
                 component: StakingLimitForLP
               },
               {
                 path: "/staking/lp/latest/history",
-                name: "StakingLimitForLPHistory",
+                name: "StakingLimitForLPLatestHistory",
                 component: StakingLimitForLPHistory
               }
             ]
@@ -50,12 +50,12 @@ const routes = [
             children: [
               {
                 path: "/staking/single/latest",
-                name: "StakingLimitForSingle",
+                name: "StakingLimitForSingleLatest",
                 component: StakingLimitForSingle
               },
               {
                 path: "/staking/single/latest/history",
-                name: "StakingLimitForSingleHistory",
+                name: "StakingLimitForSingleLatestHistory",
                 component: StakingLimitForSingleHistory
               }
             ]

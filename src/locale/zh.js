@@ -2,6 +2,7 @@ import { default as zhHans } from "vuetify/lib/locale/zh-Hans";
 
 export default {
   $vuetify: { ...zhHans },
+  Hello: "Hello",
 
   Home: "首页",
   Swap: "兑换",

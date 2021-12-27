@@ -14,26 +14,20 @@
 
       <div>
         <v-tabs background-color="transparent">
-          <v-tab
+          <a
+            class="v-tab font-weight-bold"
             href="https://app.heco.daoswap.cc/#/swap"
-            :ripple="false"
-            class="font-weight-bold"
-            text
-            >{{ $t("Swap") }}</v-tab
+            >{{ $t("Swap") }}</a
           >
-          <v-tab
+          <a
+            class="v-tab font-weight-bold"
             href="https://app.heco.daoswap.cc/#/pool"
-            :ripple="false"
-            class="font-weight-bold"
-            text
-            >{{ $t("Pool") }}</v-tab
+            >{{ $t("Pool") }}</a
           >
-          <v-tab
+          <a
+            class="v-tab font-weight-bold"
             href="https://app.heco.daoswap.cc/#/dao"
-            :ripple="false"
-            class="font-weight-bold"
-            text
-            >{{ $t("DAO") }}</v-tab
+            >{{ $t("DAO") }}</a
           >
           <v-tab to="/staking" :ripple="false" class="font-weight-bold" text>{{
             $t("Node")

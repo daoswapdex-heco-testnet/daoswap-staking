@@ -2,6 +2,7 @@ import { en } from "vuetify/lib/locale";
 
 export default {
   $vuetify: { ...en },
+  Hello: "Hello",
 
   Home: "Home",
   Swap: "Swap",
