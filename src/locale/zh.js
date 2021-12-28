@@ -35,6 +35,9 @@ export default {
   Released: "已提取金额",
   Start: "开始时间",
   Duration: "释放周期",
+  "Receive Amount": "得到数量",
+  "Releasable Amount": "待释放",
+  "Released Amount": "已释放",
 
   Just: "刚刚",
   "minute ago": "分钟前",

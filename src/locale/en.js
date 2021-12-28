@@ -35,6 +35,9 @@ export default {
   Released: "Released",
   Start: "Start",
   Duration: "Duration",
+  "Receive Amount": "Receive Amount",
+  "Releasable Amount": "Releasable Amount",
+  "Released Amount": "Released Amount",
 
   Just: "Just",
   "minute ago": "minute ago",
