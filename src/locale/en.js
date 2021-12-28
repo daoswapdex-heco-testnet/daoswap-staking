@@ -87,12 +87,15 @@ export default {
   "Staking History": "Staking History",
   "Staking Success": "Staking Success",
   "Staking Amount": "Staking Amount",
-  "Staking Total Amount": "Staking Amount",
+  "Staking LP Total Amount": "Staking Total Amount",
+  "Staking DAO Total Amount": "Staking Total Amount",
   "Staking Enable Amount": "Staking Enable Amount",
   "Avaliable Amount": "Avaliable Amount",
   "Staking Start Time": "Staking Start Time",
   "Staking Duration": "Staking Duration",
   "Staking Rewards Token": "Staking Rewards Token",
   "Staking Cap Amount": "Max",
-  "Staked Total Amount": "Staked"
+  "Staked Total Amount": "Staked",
+  "Staked LP Total Amount": "Staked LP Total Amount",
+  "Staked DAO Total Amount": "Staked DAO Total Amount"
 };

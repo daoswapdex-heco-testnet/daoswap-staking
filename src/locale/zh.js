@@ -83,12 +83,15 @@ export default {
   "Staking History": "质押记录",
   "Staking Success": "质押成功",
   "Staking Amount": "质押额度",
-  "Staking Total Amount": "质押LP总量",
+  "Staking LP Total Amount": "质押LP总量",
+  "Staking DAO Total Amount": "质押DAO总量",
   "Staking Enable Amount": "可质押额度",
   "Avaliable Amount": "可质押额度",
   "Staking Start Time": "质押开始时间",
   "Staking Duration": "质押期限",
   "Staking Rewards Token": "奖励Token",
   "Staking Cap Amount": "封顶额度",
-  "Staked Total Amount": "已质押"
+  "Staked Total Amount": "已质押",
+  "Staked LP Total Amount": "已质押LP总量",
+  "Staked DAO Total Amount": "已质押DAO总量"
 };

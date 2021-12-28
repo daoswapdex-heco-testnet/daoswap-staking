@@ -15,7 +15,11 @@
               <v-row align="center">
                 <v-col class="body-1" cols="12">
                   <p>
-                    {{ $t("Staking Total Amount") }}：{{
+                    {{ $t("Staked DAO Total Amount") }}：{{ stakedTotalAmount }}
+                    {{ tokenSymbol }}
+                  </p>
+                  <p>
+                    {{ $t("Staking DAO Total Amount") }}：{{
                       accountAssets.stakedAmount
                     }}
                     {{ tokenSymbol }}

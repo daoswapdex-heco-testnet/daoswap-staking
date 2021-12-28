@@ -29,9 +29,11 @@
             href="https://test.app.heco.daoswap.cc/#/dao"
             >{{ $t("DAO") }}</a
           >
-          <v-tab to="/staking" :ripple="false" class="font-weight-bold" text>{{
-            $t("Node")
-          }}</v-tab>
+          <a
+            class="v-tab font-weight-bold"
+            href="https://test.app.heco.daoswap.cc/#/staking-lp"
+            >{{ $t("Node") }}</a
+          >
         </v-tabs>
       </div>
 
