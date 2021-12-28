@@ -15,13 +15,19 @@
               <v-row align="center">
                 <v-col class="body-1" cols="12">
                   <p>
+                    {{ $t("Staking Cap Amount") }} /
+                    {{ $t("Staked Total Amount") }}：{{ cap }} /
+                    {{ stakedTotalAmount }}
+                    {{ tokenSymbol }}
+                  </p>
+                  <p>
                     {{ $t("Staking Total Amount") }}：{{
                       accountAssets.stakedAmount
                     }}
                     {{ tokenSymbol }}
                   </p>
                   <p>
-                    {{ $t("Staking Enable Amount") }}：{{ maxStakingAmount }}
+                    {{ $t("Avaliable Amount") }}：{{ maxStakingAmount }}
                     {{ tokenSymbol }}
                   </p>
                 </v-col>
@@ -434,7 +440,7 @@ export default {
     },
     // 跳转历史记录
     gotoHistory() {
-      this.$router.push({ path: "/staking/lp/history" });
+      this.$router.push({ path: "/staking/lp/1/history" });
     }
   }
 };

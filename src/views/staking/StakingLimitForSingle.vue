@@ -21,7 +21,7 @@
                     {{ tokenSymbol }}
                   </p>
                   <p>
-                    {{ $t("Staking Enable Amount") }}：{{ maxStakingAmount }}
+                    {{ $t("Avaliable Amount") }}：{{ maxStakingAmount }}
                     {{ tokenSymbol }}
                   </p>
                 </v-col>
@@ -442,7 +442,7 @@ export default {
     },
     // 跳转历史记录
     gotoHistory() {
-      this.$router.push({ path: "/staking/single/history" });
+      this.$router.push({ path: "/staking/single/1/history" });
     }
   }
 };

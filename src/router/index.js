@@ -27,17 +27,17 @@ const routes = [
           {
             path: "/staking/lp",
             name: "StakingLimitForLP",
-            redirect: "/staking/lp/latest",
+            redirect: "/staking/lp/1",
             component: () => import("@/layouts/home/ViewBlank.vue"),
             children: [
               {
-                path: "/staking/lp/latest",
-                name: "StakingLimitForLPLatest",
+                path: "/staking/lp/1",
+                name: "StakingLimitForLP1",
                 component: StakingLimitForLP
               },
               {
-                path: "/staking/lp/latest/history",
-                name: "StakingLimitForLPLatestHistory",
+                path: "/staking/lp/1/history",
+                name: "StakingLimitForLP1History",
                 component: StakingLimitForLPHistory
               }
             ]
@@ -45,17 +45,17 @@ const routes = [
           {
             path: "/staking/single",
             name: "StakingLimitForSingle",
-            redirect: "/staking/single/latest",
+            redirect: "/staking/single/1",
             component: () => import("@/layouts/home/ViewBlank.vue"),
             children: [
               {
-                path: "/staking/single/latest",
-                name: "StakingLimitForSingleLatest",
+                path: "/staking/single/1",
+                name: "StakingLimitForSingle1",
                 component: StakingLimitForSingle
               },
               {
-                path: "/staking/single/latest/history",
-                name: "StakingLimitForSingleLatestHistory",
+                path: "/staking/single/1/history",
+                name: "StakingLimitForSingle1History",
                 component: StakingLimitForSingleHistory
               }
             ]
