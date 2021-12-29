@@ -297,11 +297,7 @@ export default {
           this.$t("StakingSingleForm.The amount does not meet the requirements")
         );
       }
-      if (
-        parseFloat(stakingAmountValue) +
-          parseFloat(this.accountAssets.stakedAmount) >
-        this.maxStakingAmount
-      ) {
+      if (parseFloat(stakingAmountValue) > this.maxStakingAmount) {
         errors.push(
           this.$t("StakingSingleForm.The amount exceeds the max staking amount")
         );
