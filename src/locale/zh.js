@@ -11,6 +11,7 @@ export default {
   Node: "节点",
 
   Close: "关闭",
+  "No Data": "暂无数据",
 
   "Connect Wallet": "连接钱包",
   "Disconnect Wallet": "断开钱包连接",
@@ -20,6 +21,7 @@ export default {
   to: "到",
   usdt: "USDT",
   Claim: "提取",
+  "Approve Success": "授权成功",
   "Claim Success": "提取成功",
 
   "DAO is offical goverance token for DAOSWAP.":
@@ -96,5 +98,6 @@ export default {
   "Staking Cap Amount": "封顶额度",
   "Staked Total Amount": "已质押",
   "Staked LP Total Amount": "已质押LP总量",
-  "Staked DAO Total Amount": "已质押DAO总量"
+  "Staked DAO Total Amount": "已质押DAO总量",
+  "Claim Staking": "取出质押"
 };
