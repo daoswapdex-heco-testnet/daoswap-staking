@@ -21,13 +21,13 @@
                     {{ tokenSymbol }}
                   </p>
                   <p>
-                    {{ $t("Staked DAO Total Amount") }}：{{ stakedTotalAmount }}
+                    {{ $t("Staking LP Total Amount") }}：{{
+                      accountAssets.stakedAmount
+                    }}
                     {{ tokenSymbol }}
                   </p>
                   <p>
-                    {{ $t("Staking DAO Total Amount") }}：{{
-                      accountAssets.stakedAmount
-                    }}
+                    {{ $t("Avaliable Amount") }}：{{ maxStakingAmount }}
                     {{ tokenSymbol }}
                   </p>
                 </v-col>
@@ -206,16 +206,16 @@ import clip from "@/utils/clipboard";
 import {
   DAOAddress,
   DSTAddress,
-  StakingLimitForSingleTokenAddress,
-  StakingLimitForSingleContractAddress
+  StakingInviterTokenAddress,
+  StakingInviterContractAddress
 } from "@/constants";
 import { getContractByABI, weiToEther, etherToWei } from "@/utils/web3";
 // 引入合约 ABI 文件
 import ERC20DAO_ABI from "@/constants/contractJson/ERC20DAO_abi.json";
-import StakingLimit_ABI from "@/constants/contractJson/StakingLimit_abi.json";
+import StakingInviter_ABI from "@/constants/contractJson/StakingInviter_abi.json";
 
 export default {
-  name: "StakingLimitForSingle",
+  name: "StakingInviter",
   mixins: [validationMixin],
   validations: {
     stakingAmount: { required, decimal }
@@ -233,8 +233,6 @@ export default {
       balance: 0,
       allowanceAmount: 0, // 已授权额度
       stakedAmount: 0
-      // toBeReleasableAmount: 0,
-      // nodeName: "None"
     },
     // 合约数据
     stakedTotalAmount: 0,
@@ -354,14 +352,14 @@ export default {
       // 查询当前账号余额
       const contractERC20DAO = getContractByABI(
         ERC20DAO_ABI,
-        StakingLimitForSingleTokenAddress,
+        StakingInviterTokenAddress,
         this.web3
       );
       const balance = await contractERC20DAO.methods
         .balanceOf(this.address)
         .call();
       const allowance = await contractERC20DAO.methods
-        .allowance(this.address, StakingLimitForSingleContractAddress)
+        .allowance(this.address, StakingInviterContractAddress)
         .call();
       this.accountAssets.balance = weiToEther(balance, this.web3);
       this.accountAssets.allowanceAmount = weiToEther(allowance, this.web3);
@@ -369,8 +367,8 @@ export default {
     // 获取质押合约信息
     async getContractInfo() {
       const contract = getContractByABI(
-        StakingLimit_ABI,
-        StakingLimitForSingleContractAddress,
+        StakingInviter_ABI,
+        StakingInviterContractAddress,
         this.web3
       );
       const stakedTotalAmount = await contract.methods
@@ -419,13 +417,9 @@ export default {
     handleApprove() {
       this.loading = true;
       // 执行合约
-      getContractByABI(
-        ERC20DAO_ABI,
-        StakingLimitForSingleTokenAddress,
-        this.web3
-      )
+      getContractByABI(ERC20DAO_ABI, StakingInviterTokenAddress, this.web3)
         .methods.approve(
-          StakingLimitForSingleContractAddress,
+          StakingInviterContractAddress,
           etherToWei(this.stakingAmount, this.web3)
         )
         .send({ from: this.address })
@@ -456,8 +450,8 @@ export default {
         this.$v.$touch();
         this.loading = true;
         getContractByABI(
-          StakingLimit_ABI,
-          StakingLimitForSingleContractAddress,
+          StakingInviter_ABI,
+          StakingInviterContractAddress,
           this.web3
         )
           .methods.stakingTokens(etherToWei(this.stakingAmount, this.web3))
@@ -477,7 +471,7 @@ export default {
     },
     // 跳转历史记录
     gotoHistory() {
-      this.$router.push({ path: "/staking/single/1/history" });
+      this.$router.push({ path: "/staking/inviter/1/history" });
     }
   }
 };

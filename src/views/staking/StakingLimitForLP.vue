@@ -210,10 +210,10 @@ import {
   StakingLimitForLPTokenAddress,
   StakingLimitForLPContractAddress
 } from "@/constants";
-import { getContract, weiToEther, etherToWei } from "@/utils/web3";
+import { getContractByABI, weiToEther, etherToWei } from "@/utils/web3";
 // 引入合约 ABI 文件
-import ERC20DAO from "@/constants/contractJson/ERC20DAO.json";
-import StakingLimit from "@/constants/contractJson/StakingLimit.json";
+import ERC20DAO_ABI from "@/constants/contractJson/ERC20DAO_abi.json";
+import StakingLimit_ABI from "@/constants/contractJson/StakingLimit_abi.json";
 
 export default {
   name: "StakingLimitForLP",
@@ -349,8 +349,8 @@ export default {
     // 获取账号信息
     async getAccountAssets() {
       // 查询当前账号余额
-      const contractERC20DAO = getContract(
-        ERC20DAO,
+      const contractERC20DAO = getContractByABI(
+        ERC20DAO_ABI,
         StakingLimitForLPTokenAddress,
         this.web3
       );
@@ -365,8 +365,8 @@ export default {
     },
     // 获取质押合约信息
     async getContractInfo() {
-      const contract = getContract(
-        StakingLimit,
+      const contract = getContractByABI(
+        StakingLimit_ABI,
         StakingLimitForLPContractAddress,
         this.web3
       );
@@ -382,7 +382,11 @@ export default {
       this.minStakingAmount = weiToEther(minStakingAmount, this.web3);
       this.capReached = await contract.methods.capReached().call();
       const stakingToken = await contract.methods.stakingToken().call();
-      const contractERC20DAO = getContract(ERC20DAO, stakingToken, this.web3);
+      const contractERC20DAO = getContractByABI(
+        ERC20DAO_ABI,
+        stakingToken,
+        this.web3
+      );
       this.tokenSymbol = await contractERC20DAO.methods.symbol().call();
 
       const tokenVestingInfo = await contract.methods
@@ -407,7 +411,7 @@ export default {
     handleApprove() {
       this.loading = true;
       // 执行合约
-      getContract(ERC20DAO, StakingLimitForLPTokenAddress, this.web3)
+      getContractByABI(ERC20DAO_ABI, StakingLimitForLPTokenAddress, this.web3)
         .methods.approve(
           StakingLimitForLPContractAddress,
           etherToWei(this.stakingAmount, this.web3)
@@ -439,7 +443,11 @@ export default {
       } else {
         this.$v.$touch();
         this.loading = true;
-        getContract(StakingLimit, StakingLimitForLPContractAddress, this.web3)
+        getContractByABI(
+          StakingLimit_ABI,
+          StakingLimitForLPContractAddress,
+          this.web3
+        )
           .methods.stakingTokens(etherToWei(this.stakingAmount, this.web3))
           .send({ from: this.address })
           .then(() => {

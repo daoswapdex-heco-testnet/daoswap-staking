@@ -4,6 +4,8 @@ import StakingLimitForLP from "../views/staking/StakingLimitForLP.vue";
 import StakingLimitForLPHistory from "../views/staking/StakingLimitForLPHistory.vue";
 import StakingLimitForSingle from "../views/staking/StakingLimitForSingle.vue";
 import StakingLimitForSingleHistory from "../views/staking/StakingLimitForSingleHistory.vue";
+import StakingInviter from "../views/staking/StakingInviter.vue";
+import StakingInviterHistory from "../views/staking/StakingInviterHistory.vue";
 
 Vue.use(VueRouter);
 
@@ -57,6 +59,24 @@ const routes = [
                 path: "/staking/single/1/history",
                 name: "StakingLimitForSingle1History",
                 component: StakingLimitForSingleHistory
+              }
+            ]
+          },
+          {
+            path: "/staking/inviter",
+            name: "StakingInviter",
+            redirect: "/staking/inviter/1",
+            component: () => import("@/layouts/home/ViewBlank.vue"),
+            children: [
+              {
+                path: "/staking/inviter/1",
+                name: "StakingInviter1",
+                component: StakingInviter
+              },
+              {
+                path: "/staking/inviter/1/history",
+                name: "StakingInviter1History",
+                component: StakingInviterHistory
               }
             ]
           }
