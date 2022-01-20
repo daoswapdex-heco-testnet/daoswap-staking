@@ -62,11 +62,6 @@
                       }}
                     </p>
                     <p>
-                      {{ $t("Account New Quantity") }}：{{
-                        item.rewardsInfo.accountNewQuantity
-                      }}
-                    </p>
-                    <p>
                       {{ $t("Claimable Amount") }} /
                       {{ $t("Claimabled Amount") }}：{{
                         item.rewardsInfo.isClaim
@@ -285,20 +280,7 @@ export default {
               contractAddress: item.address,
               rewardsInfo: {
                 stellarNewQuantity: rewardsInfo.stellarNewQuantity,
-                stellarRewards: weiToEther(
-                  rewardsInfo.stellarRewards,
-                  this.web3
-                ),
                 planetaryNewQuantity: rewardsInfo.planetaryNewQuantity,
-                planetaryRewards: weiToEther(
-                  rewardsInfo.planetaryRewards,
-                  this.web3
-                ),
-                accountNewQuantity: rewardsInfo.accountNewQuantity,
-                accountRewards: weiToEther(
-                  rewardsInfo.accountRewards,
-                  this.web3
-                ),
                 totalRewards: totalRewardsFormat,
                 isClaim: rewardsInfo.isClaim
               }
