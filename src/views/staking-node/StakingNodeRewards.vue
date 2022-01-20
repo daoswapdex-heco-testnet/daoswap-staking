@@ -52,15 +52,6 @@
                   <v-divider class="mx-4"></v-divider>
                   <v-card-text>
                     <p>
-                      {{ $t("Rewards All Staking") }}：{{ item.countedRewards }}
-                    </p>
-                    <p>
-                      {{ $t("Rewards Node Proportion") }}：{{
-                        item.annualizedRate
-                      }}
-                      %
-                    </p>
-                    <p>
                       {{ $t("Stellar New Quantity") }}：{{
                         item.rewardsInfo.stellarNewQuantity
                       }}
@@ -281,21 +272,17 @@ export default {
           const hasRewardsInfo = await contract.methods
             .hasRewardsInfo(this.address)
             .call();
-          if (hasRewardsInfo) {
-            const countedRewards = await contract.methods
-              .countedRewards()
-              .call();
-            const rewardsInfo = await contract.methods
-              .accountRewardsMap(this.address)
-              .call();
-            const annualizedRate =
-              countedRewards > 0
-                ? (rewardsInfo.totalRewards / countedRewards) * 100
-                : 0;
+          const rewardsInfo = await contract.methods
+            .accountRewardsMap(this.address)
+            .call();
+          const totalRewardsFormat = weiToEther(
+            rewardsInfo.totalRewards,
+            this.web3
+          );
+          if (hasRewardsInfo && parseFloat(totalRewardsFormat) > 0) {
             const tempData = {
               periodId: item.id,
               contractAddress: item.address,
-              countedRewards: weiToEther(countedRewards, this.web3),
               rewardsInfo: {
                 stellarNewQuantity: rewardsInfo.stellarNewQuantity,
                 stellarRewards: weiToEther(
@@ -312,10 +299,9 @@ export default {
                   rewardsInfo.accountRewards,
                   this.web3
                 ),
-                totalRewards: weiToEther(rewardsInfo.totalRewards, this.web3),
+                totalRewards: totalRewardsFormat,
                 isClaim: rewardsInfo.isClaim
-              },
-              annualizedRate: parseFloat(annualizedRate).toFixed(2)
+              }
             };
             this.rewardsDataList.push(tempData);
           }
