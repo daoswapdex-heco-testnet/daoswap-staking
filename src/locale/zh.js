@@ -12,6 +12,8 @@ export default {
 
   Close: "关闭",
   "No Data": "暂无数据",
+  Phase: "第",
+  Expect: "期",
 
   "Connect Wallet": "连接钱包",
   "Disconnect Wallet": "断开钱包连接",
@@ -100,5 +102,19 @@ export default {
   "Staked Total Amount": "已质押",
   "Staked LP Total Amount": "已质押LP总量",
   "Staked DAO Total Amount": "已质押DAO总量",
-  "Claim Staking": "取出质押"
+  "Claim Staking": "取出质押",
+
+  Activities: "进行中的活动",
+  "Will caculate and airdrop within 3 workdays after the last day.":
+    "周期结束后，3个工作日内完成统计并空投。",
+
+  "Claimable Amount": "可提取",
+  "Claimabled Amount": "已提取",
+  "Rewards Duration": "奖励周期",
+  "Staking Node Rewards": "质押节点奖励",
+  "Rewards All Staking": "质押总奖励",
+  "Rewards Node Proportion": "奖励占比",
+  "Stellar New Quantity": "新增恒星节点数量",
+  "Planetary New Quantity": "新增行星节点数量",
+  "Account New Quantity": "新增普通账号节点数量"
 };

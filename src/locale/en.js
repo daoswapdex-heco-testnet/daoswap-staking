@@ -12,6 +12,8 @@ export default {
 
   Close: "Close",
   "No Data": "No Data",
+  Phase: "Phase",
+  Expect: "",
 
   "Connect Wallet": "Connect Wallet",
   "Disconnect Wallet": "Disconnect Wallet",
@@ -104,5 +106,19 @@ export default {
   "Staked Total Amount": "Staked",
   "Staked LP Total Amount": "Staked LP Total Amount",
   "Staked DAO Total Amount": "Staked DAO Total Amount",
-  "Claim Staking": "Claim Staking"
+  "Claim Staking": "Claim Staking",
+
+  Activities: "Activities",
+  "Will caculate and airdrop within 3 workdays after the last day.":
+    "Will caculate and airdrop within 3 workdays after the last day.",
+
+  "Claimable Amount": "Claimable Amount",
+  "Claimabled Amount": "Claimabled Amount",
+  "Rewards Duration": "Rewards Duration",
+  "Staking Node Rewards": "Staking Node Rewards",
+  "Rewards All Staking": "Rewards All Staking",
+  "Rewards Node Proportion": "Rewards Node Proportion",
+  "Stellar New Quantity": "Stellar New Quantity",
+  "Planetary New Quantity": "Planetary New Quantity",
+  "Account New Quantity": "Account New Quantity"
 };
