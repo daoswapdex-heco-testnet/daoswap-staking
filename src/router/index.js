@@ -6,7 +6,6 @@ import StakingLimitForSingle from "../views/staking/StakingLimitForSingle.vue";
 import StakingLimitForSingleHistory from "../views/staking/StakingLimitForSingleHistory.vue";
 import StakingInviter from "../views/staking/StakingInviter.vue";
 import StakingInviterHistory from "../views/staking/StakingInviterHistory.vue";
-import StakingNodeRewards from "../views/staking-node/StakingNodeRewards.vue";
 
 Vue.use(VueRouter);
 
@@ -82,11 +81,6 @@ const routes = [
             ]
           }
         ]
-      },
-      {
-        path: "/staking-node-rewards",
-        name: "StakingNodeRewards",
-        component: StakingNodeRewards
       },
       {
         path: "/404",
