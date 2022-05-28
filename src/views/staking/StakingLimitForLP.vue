@@ -201,6 +201,7 @@
 </template>
 
 <script>
+import { JSBI } from "@/utils/jsbi";
 import { validationMixin } from "vuelidate";
 import { required, decimal } from "vuelidate/lib/validators";
 import clip from "@/utils/clipboard";
@@ -216,7 +217,7 @@ import ERC20DAO_ABI from "@/constants/contractJson/ERC20DAO_abi.json";
 import StakingLimit_ABI from "@/constants/contractJson/StakingLimit_abi.json";
 
 export default {
-  name: "StakingLimitForLP",
+  name: "StakingLimitForLP1",
   mixins: [validationMixin],
   validations: {
     stakingAmount: { required, decimal }
@@ -397,15 +398,20 @@ export default {
         this.web3
       );
       // 计算最多可质押数量
-      const remainingStakingAmount =
-        parseFloat(this.cap) - parseFloat(this.stakedTotalAmount);
-      const enableStakingAmount =
-        parseFloat(this.maxStakingAmount) -
-        parseFloat(this.accountAssets.stakedAmount);
-      this.maxStakingAmount =
-        remainingStakingAmount < enableStakingAmount
-          ? remainingStakingAmount
-          : enableStakingAmount;
+      const remainingStakingAmount = JSBI.subtract(
+        JSBI.BigInt(cap),
+        JSBI.BigInt(stakedTotalAmount)
+      );
+      const enableStakingAmount = JSBI.subtract(
+        JSBI.BigInt(maxStakingAmount),
+        JSBI.BigInt(tokenVestingInfo.stakedAmount)
+      );
+      this.maxStakingAmount = JSBI.lessThan(
+        remainingStakingAmount,
+        enableStakingAmount
+      )
+        ? weiToEther(remainingStakingAmount.toString(), this.web3)
+        : weiToEther(enableStakingAmount.toString(), this.web3);
     },
     // 授权
     handleApprove() {
