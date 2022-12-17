@@ -116,5 +116,8 @@ export default {
   "Rewards Node Proportion": "奖励占比",
   "Stellar New Quantity": "新增恒星节点数量",
   "Planetary New Quantity": "新增行星节点数量",
-  "Account New Quantity": "新增普通账号节点数量"
+  "Account New Quantity": "新增普通账号节点数量",
+
+  "Old Node": "旧节点",
+  "The account does not meet the requirements": "账号不满足需求"
 };

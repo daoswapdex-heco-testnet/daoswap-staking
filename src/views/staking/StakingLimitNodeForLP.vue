@@ -46,7 +46,7 @@
                 </span>
               </v-card-title>
               <v-divider></v-divider>
-              <v-card-text v-if="!capReached">
+              <v-card-text v-if="!capReached && isOpen && isAllowStaking">
                 <form>
                   <v-card-text>
                     <v-text-field
@@ -91,10 +91,19 @@
                   </v-card-actions>
                 </form>
               </v-card-text>
-              <v-card-text v-else>
+              <v-card-text
+                v-else-if="(capReached || !isOpen) && isAllowStaking"
+              >
                 <v-row align="center">
                   <v-col class="subtitle-1" cols="12">
                     {{ $t("Staking event has ended") }}
+                  </v-col>
+                </v-row>
+              </v-card-text>
+              <v-card-text v-else>
+                <v-row align="center">
+                  <v-col class="subtitle-1" cols="12">
+                    {{ $t("The account does not meet the requirements") }}
                   </v-col>
                 </v-row>
               </v-card-text>
@@ -210,16 +219,16 @@ import clip from "@/utils/clipboard";
 import {
   DAOAddress,
   DSTAddress,
-  StakingLimitForLPTokenAddress,
-  StakingLimitForLPContractAddress
+  StakingLimitNodeTokenAddress,
+  StakingLimitNodeContractAddress
 } from "@/constants";
 import { getContractByABI, weiToEther, etherToWei } from "@/utils/web3";
 // 引入合约 ABI 文件
 import ERC20DAO_ABI from "@/constants/contractJson/ERC20DAO_abi.json";
-import StakingLimit_ABI from "@/constants/contractJson/StakingLimit_abi.json";
+import StakingLimitNode_ABI from "@/constants/contractJson/StakingLimitNode_abi.json";
 
 export default {
-  name: "StakingLimitForLP1",
+  name: "StakingLimitNodeForLP",
   mixins: [validationMixin],
   validations: {
     stakingAmount: { required, decimal }
@@ -237,15 +246,15 @@ export default {
       balance: 0,
       allowanceAmount: 0, // 已授权额度
       stakedAmount: 0
-      // toBeReleasableAmount: 0,
-      // nodeName: "None"
     },
     // 合约数据
     stakedTotalAmount: 0,
     capReached: false,
+    isAllowStaking: false,
     cap: 0,
     maxStakingAmount: 0,
     minStakingAmount: 0,
+    isOpen: true,
     // 提示框
     operationResult: {
       color: "success",
@@ -354,14 +363,14 @@ export default {
       // 查询当前账号余额
       const contractERC20DAO = getContractByABI(
         ERC20DAO_ABI,
-        StakingLimitForLPTokenAddress,
+        StakingLimitNodeTokenAddress,
         this.web3
       );
       const balance = await contractERC20DAO.methods
         .balanceOf(this.address)
         .call();
       const allowance = await contractERC20DAO.methods
-        .allowance(this.address, StakingLimitForLPContractAddress)
+        .allowance(this.address, StakingLimitNodeContractAddress)
         .call();
       this.accountAssets.balance = weiToEther(balance, this.web3);
       this.accountAssets.allowanceAmount = weiToEther(allowance, this.web3);
@@ -369,8 +378,8 @@ export default {
     // 获取质押合约信息
     async getContractInfo() {
       const contract = getContractByABI(
-        StakingLimit_ABI,
-        StakingLimitForLPContractAddress,
+        StakingLimitNode_ABI,
+        StakingLimitNodeContractAddress,
         this.web3
       );
       const stakedTotalAmount = await contract.methods
@@ -379,11 +388,10 @@ export default {
       this.stakedTotalAmount = weiToEther(stakedTotalAmount, this.web3);
       const cap = await contract.methods.cap().call();
       this.cap = weiToEther(cap, this.web3);
-      const maxStakingAmount = await contract.methods.maxStakingAmount().call();
-      this.maxStakingAmount = weiToEther(maxStakingAmount, this.web3);
-      const minStakingAmount = await contract.methods.minStakingAmount().call();
-      this.minStakingAmount = weiToEther(minStakingAmount, this.web3);
       this.capReached = await contract.methods.capReached().call();
+      this.isAllowStaking = await contract.methods.isAllowStaking().call({
+        from: this.address
+      });
       const stakingToken = await contract.methods.stakingToken().call();
       const contractERC20DAO = getContractByABI(
         ERC20DAO_ABI,
@@ -400,28 +408,22 @@ export default {
         this.web3
       );
       // 计算最多可质押数量
-      const remainingStakingAmount = JSBI.subtract(
-        JSBI.BigInt(cap),
-        JSBI.BigInt(stakedTotalAmount)
+      const enableStakingAmount = await contract.methods
+        .getEnableStakingAmount(this.address)
+        .call();
+      this.maxStakingAmount = weiToEther(enableStakingAmount, this.web3);
+      this.isOpen = JSBI.lessThan(
+        JSBI.BigInt(0),
+        JSBI.BigInt(enableStakingAmount)
       );
-      const enableStakingAmount = JSBI.subtract(
-        JSBI.BigInt(maxStakingAmount),
-        JSBI.BigInt(tokenVestingInfo.stakedAmount)
-      );
-      this.maxStakingAmount = JSBI.lessThan(
-        remainingStakingAmount,
-        enableStakingAmount
-      )
-        ? weiToEther(remainingStakingAmount.toString(), this.web3)
-        : weiToEther(enableStakingAmount.toString(), this.web3);
     },
     // 授权
     handleApprove() {
       this.loading = true;
       // 执行合约
-      getContractByABI(ERC20DAO_ABI, StakingLimitForLPTokenAddress, this.web3)
+      getContractByABI(ERC20DAO_ABI, StakingLimitNodeTokenAddress, this.web3)
         .methods.approve(
-          StakingLimitForLPContractAddress,
+          StakingLimitNodeContractAddress,
           etherToWei(this.stakingAmount, this.web3)
         )
         .send({ from: this.address })
@@ -452,8 +454,8 @@ export default {
         this.$v.$touch();
         this.loading = true;
         getContractByABI(
-          StakingLimit_ABI,
-          StakingLimitForLPContractAddress,
+          StakingLimitNode_ABI,
+          StakingLimitNodeContractAddress,
           this.web3
         )
           .methods.stakingTokens(etherToWei(this.stakingAmount, this.web3))
@@ -473,7 +475,7 @@ export default {
     },
     // 跳转历史记录
     gotoHistory() {
-      this.$router.push({ path: "/staking/lp/1/history" });
+      this.$router.push({ path: "/staking/lp/node/history" });
     }
   }
 };

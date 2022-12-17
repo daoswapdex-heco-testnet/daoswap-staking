@@ -34,6 +34,9 @@
             href="https://app.daoswap.cc/#/staking-lp"
             >{{ $t("Node") }}</a
           >
+          <a class="v-tab font-weight-bold" href="/staking/lp/node">{{
+            $t("Old Node")
+          }}</a>
         </v-tabs>
       </div>
 

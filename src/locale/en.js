@@ -120,5 +120,9 @@ export default {
   "Rewards Node Proportion": "Rewards Node Proportion",
   "Stellar New Quantity": "Stellar New Quantity",
   "Planetary New Quantity": "Planetary New Quantity",
-  "Account New Quantity": "Account New Quantity"
+  "Account New Quantity": "Account New Quantity",
+
+  "Old Node": "Old Node",
+  "The account does not meet the requirements":
+    "The account does not meet the requirements"
 };
